@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Truco Paulista</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <section id="welcome-screen" class="welcome-screen" aria-labelledby="welcome-title">
+      <div class="welcome-noise" aria-hidden="true"></div>
+      <div class="welcome-content">
+        <p class="eyebrow">Truco paulista · mesa aberta</p>
+        <h1 id="welcome-title">Truco</h1>
+        <p class="welcome-copy">O baralho está na mesa. Escolha bem, blefe melhor.</p>
+        <div class="welcome-cards" aria-hidden="true">
+          <span class="welcome-card card card-one"><span class="card-corner top"><b>A</b><i>♠</i></span><span class="card-pip">♠</span><span class="card-corner bottom"><b>A</b><i>♠</i></span></span>
+          <span class="welcome-card card red card-two"><span class="card-corner top"><b>7</b><i>♦</i></span><span class="card-pip">♦</span><span class="card-corner bottom"><b>7</b><i>♦</i></span></span>
+          <span class="welcome-card card card-three"><span class="card-corner top"><b>K</b><i>♣</i></span><span class="card-pip">♣</span><span class="card-corner bottom"><b>K</b><i>♣</i></span></span>
+        </div>
+        <div class="welcome-actions"><button id="start-game" class="primary-action" type="button">Sentar à mesa <span>→</span></button><button id="customize-game" class="settings-trigger" type="button">Personalização</button><button id="welcome-settings" class="settings-trigger" type="button">Opções</button></div>
+        <p class="welcome-note">Partida rápida · até 12 pontos</p>
+      </div>
+    </section>
+    <section id="match-screen" class="match-screen" aria-live="polite" aria-hidden="true">
+      <div class="match-content"><p class="eyebrow">Fim de partida</p><h2 id="match-title">A mesa tem um vencedor</h2><p id="match-copy"></p><button id="play-again" class="primary-action" type="button">Jogar novamente <span>→</span></button></div>
+    </section>
+    <main class="game-shell">
+      <header>
+        <div>
+          <p class="eyebrow">Truco paulista</p>
+          <h1>Na mesa</h1>
+          <p id="status" aria-live="polite">Preparando partida…</p>
+        </div>
+        <div class="header-actions"><button id="customize-button" class="settings-trigger" type="button">Personalização</button><button id="settings-button" class="settings-trigger" type="button">Opções</button><button id="new-game" type="button">Nova partida</button></div>
+      </header>
+
+      <section class="scoreboard" aria-label="Placar">
+        <div><span id="score-us-label">Nós</span><strong id="score-us">0</strong></div>
+        <div><span id="score-them-label">Eles</span><strong id="score-them">0</strong></div>
+        <div><span>Mão vale</span><strong id="hand-value">1</strong></div>
+        <div id="series-score" class="series-score hidden"><span>Série</span><strong id="series-score-value">0–0</strong></div>
+      </section>
+
+      <section class="table" aria-label="Mesa de jogo">
+        <div class="vira"><span>Vira</span><div id="vira-card" class="card">?</div></div>
+        <div id="opponents" class="opponents" aria-label="Cartas dos outros jogadores"></div>
+        <div id="trick-cards" class="trick-cards" aria-label="Cartas da vaza"></div>
+        <div id="truco-callout" class="truco-callout" aria-live="assertive" aria-atomic="true"></div>
+        <p id="trick-summary" class="trick-summary">Nenhuma vaza disputada.</p>
+      </section>
+
+      <section class="controls" aria-label="Ações">
+        <div id="bid-actions" class="action-row">
+          <button id="call-truco" type="button">Pedir Truco</button>
+        </div>
+        <div id="response-actions" class="action-row hidden">
+          <span id="bid-message"></span>
+          <button data-bid-response="accept" type="button">Aceitar</button>
+          <button data-bid-response="raise" type="button">Aumentar</button>
+          <button data-bid-response="run" type="button">Correr</button>
+        </div>
+      </section>
+
+      <section class="hand-area" aria-label="Sua mão">
+        <h2>Sua mão</h2>
+        <div id="player-hand" class="hand"></div>
+      </section>
+
+    </main>
+    <dialog id="settings-dialog" class="settings-dialog" aria-labelledby="settings-title"><form method="dialog" class="settings-panel"><div class="settings-heading"><div><p class="eyebrow">Ajustes da mesa</p><h2 id="settings-title">Opções</h2></div><button class="close-settings" value="cancel" aria-label="Fechar opções">×</button></div><label class="setting-control" for="music-volume"><span>Música de fundo <output id="music-volume-value">42%</output></span><input id="music-volume" type="range" min="0" max="100" value="42" /></label><label class="setting-toggle" for="effects-enabled"><span><strong>Sons de interação</strong><small>Cartas, sua vez, truco e fim da rodada</small></span><input id="effects-enabled" type="checkbox" checked /></label><label class="setting-control setting-language" for="language-select"><span>Idioma</span><select id="language-select"><option value="pt-BR">Português (Brasil)</option><option value="en">English</option></select></label><button id="how-to-play" class="settings-trigger settings-link" type="button">Como jogar Truco</button></form></dialog>
+    <dialog id="rules-dialog" class="settings-dialog rules-dialog" aria-labelledby="rules-title"><div class="settings-panel"><div class="settings-heading"><div><p id="rules-eyebrow" class="eyebrow">Guia rápido</p><h2 id="rules-title">Como jogar Truco</h2></div></div><div class="rules-content"><p id="rules-intro" class="rules-intro"></p><ol id="rules-list" class="rules-list"></ol><p id="rules-order" class="rules-order"></p><p id="rules-tip" class="rules-tip"></p><section class="rules-eleven"><h3 id="rules-eleven-title"></h3><p id="rules-eleven-copy"></p></section></div><button id="close-rules" class="primary-action" type="button">Voltar para Opções</button></div></dialog>
+    <dialog id="customization-dialog" class="settings-dialog customization-dialog" aria-labelledby="customization-title"><form class="settings-panel" id="customization-form"><div class="settings-heading"><div><p class="eyebrow">Antes de sentar à mesa</p><h2 id="customization-title">Personalização</h2></div><button class="close-settings" type="button" id="close-customization" aria-label="Fechar personalização">×</button></div><fieldset class="custom-section"><legend>Jogadores e nomes</legend><label>Seu nome<input id="name-0" maxlength="24" /></label><label>Adversário à esquerda<input id="name-1" maxlength="24" /></label><label>Seu parceiro<input id="name-2" maxlength="24" /></label><label>Adversário à direita<input id="name-3" maxlength="24" /></label></fieldset><fieldset class="custom-section"><legend>Dificuldade da IA</legend><div class="choice-row"><label><input type="radio" name="difficulty" value="easy" /> Fácil</label><label><input type="radio" name="difficulty" value="normal" /> Normal</label><label><input type="radio" name="difficulty" value="competitive" /> Competitivo</label></div></fieldset><fieldset class="custom-section"><legend>Formato da partida</legend><div class="choice-row stacked"><label><input type="radio" name="format" value="quick" /> Partida rápida <small>Uma partida até 12</small></label><label><input type="radio" name="format" value="series" /> Melhor de três <small>Vença duas partidas</small></label></div></fieldset><fieldset class="custom-section"><legend>Aparência das cartas</legend><label class="setting-toggle"><span><strong>Alto contraste dos naipes</strong><small>Copas vermelhas, paus azuis, ouros amarelos e espadas pretas</small></span><input id="high-contrast" type="checkbox" /></label></fieldset><fieldset class="custom-section"><legend>Regras da partida</legend><label class="setting-toggle"><span><strong>Mão de Onze</strong><small>Decida jogar ou correr ao chegar a 11 pontos</small></span><input id="hand-of-eleven" type="checkbox" /></label></fieldset><div class="custom-actions"><button id="restore-defaults" type="button" class="settings-trigger">Restaurar padrão</button><button class="primary-action" type="submit">Iniciar com estas opções <span>→</span></button></div></form></dialog>
+    <dialog id="hand-eleven-dialog" class="settings-dialog hand-eleven-dialog" aria-labelledby="hand-eleven-title"><div class="settings-panel hand-eleven-panel"><div class="settings-heading"><div><p class="eyebrow">Mão especial</p><h2 id="hand-eleven-title">Mão de Onze</h2></div></div><p id="hand-eleven-copy">Sua dupla está com 11 pontos. Esta mão vale 3 e não permite Truco.</p><div class="hand-eleven-cards"><section class="hand-eleven-card-group" aria-labelledby="hand-eleven-your-cards"><h3 id="hand-eleven-your-cards">Suas cartas</h3><div id="hand-eleven-player-cards" class="hand-eleven-card-row"></div></section><section class="hand-eleven-card-group" aria-labelledby="hand-eleven-partner-cards"><h3 id="hand-eleven-partner-cards">Cartas do parceiro</h3><div id="hand-eleven-partner-cards-list" class="hand-eleven-card-row"></div></section></div><section class="hand-eleven-trump" aria-labelledby="hand-eleven-trump-title"><div><h3 id="hand-eleven-trump-title">Manilha desta mão</h3><p id="hand-eleven-trump-copy"></p></div><div id="hand-eleven-vira-card" class="hand-eleven-vira"></div></section><div class="custom-actions"><button id="hand-eleven-run" type="button">Correr</button><button id="hand-eleven-play" class="primary-action" type="button">Jogar a mão</button></div></div></dialog>
+    <script type="module" src="./src/app.js"></script>
+    <script type="module" src="./src/ui.js"></script>
+  </body>
+</html>
